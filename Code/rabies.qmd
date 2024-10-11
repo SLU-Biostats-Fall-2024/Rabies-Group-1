@@ -44,3 +44,35 @@ Use a combination of filter, select, slice, arrange, group_by, summarize, mutate
 9.  What was the animal type for which the highest percent of submitted samples tested positive by year in your St. Lawrence County dataset? What is the average percent positive by year?
 
 When you have finished working on your questions, save your changes and commit them. Working from your branch (and not *main*), push your changes to your repository and then open a Pull Request to have the changes incorporated into your group repository.
+
+Set up
+```{r}
+#Clear the environment 
+rm(list = ls())
+#load in packages 
+library(tidyverse)
+library(here)
+```
+
+Task 1: Load in first 7 columns of the data set 
+```{r}
+rabies <- read.csv(here("Data","Rabies_Laboratory_Submissions.csv"))
+new_rabies <- select(rabies, 1:7)
+```
+
+Task 2: Create new column called "Percent_pos"
+```{r}
+new_rabies$Percent_pos <- (rabies$Positive.Samples/rabies$Number.of.Samples)*100
+```
+
+Task 3: What year was the highest total number of submissions received
+```{r}
+Submissions_by_year <- new_rabies |>
+  group_by(Received.Year) |>
+    summarize(
+      Total_Submissions = sum(Number.of.Samples)
+    )
+filter(Submissions_by_year, max(Total_Submissions))
+```
+
+Task 4: What year and country were the highest number of positive samples received 
