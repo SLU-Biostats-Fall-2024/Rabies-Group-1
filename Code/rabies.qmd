@@ -68,7 +68,7 @@ head(SLC)
 
 Calculations:
 ```{r}
-SLC_animals <- SLC |> group_by(Animal.Classification) |> summarise()
+SLC_animals <- SLC |> group_by(Animal.Classification) |> summarise(totSub = sum(Number.of.Samples), totPos = sum(Positive.Samples), PPos = (totPos/totSub)*100)
 ```
 
 
