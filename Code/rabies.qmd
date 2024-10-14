@@ -72,7 +72,16 @@ Submissions_by_year <- new_rabies |>
     summarize(
       Total_Submissions = sum(Number.of.Samples)
     )
-filter(Submissions_by_year, max(Total_Submissions))
+arrange(Submissions_by_year, desc(Total_Submissions))
 ```
 
 Task 4: What year and country were the highest number of positive samples received 
+```{r}
+Positive_samples_by_county_and_year <- new_rabies |>
+  group_by(County.Name, Received.Year) |>
+    summarize(
+      Total_Positive_Samples = sum(Positive.Samples)
+    )
+arrange(Positive_samples_by_county_and_year, desc(Total_Positive_Samples))
+```
+
